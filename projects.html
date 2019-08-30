@@ -1,0 +1,201 @@
+<html>
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<title>Projects</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+<div id="glowscript" class="glowscript">
+<link type="text/css" href="http://www.glowscript.org/css/redmond/1.1/jquery-ui.custom.css" rel="stylesheet" />
+<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+<link type="text/css" href="http://www.glowscript.org/css/ide.css" rel="stylesheet" />
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript" src="http://www.glowscript.org/lib/jquery/1.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://www.glowscript.org/lib/jquery/1.1/jquery-ui.custom.min.js"></script>
+<script type="text/javascript" src="http://www.glowscript.org/package/glow.1.1.min.js"></script>
+<script type="text/javascript" src="http://www.glowscript.org/package/RSrun.1.1.min.js"></script>
+<script type="text/javascript">
+;(function() { var __rt=require('streamline/lib/callbacks/runtime').runtime(__filename, false),__func=__rt.__func,__cb=__rt.__cb; function main(wait) { var version, box, sphere, cylinder, pyramid, cone, helix, ellipsoid, ring, arrow, graph, display, vector, _$GS_$END, scene, _$rapyd$_Temp, _$rapyd$_print, arange, dx, N, mew, I, Q, dt, plast, coil, coilpiece, i, barrel, handle, gun, bullet, mm, k, u, x1, x2, ulist, ffunctwind, ffunct, potential, f, j, t, _$rapyd$_Iter0, _$rapyd$_Index0, _$rapyd$_Iter1, _$rapyd$_Index1, _$rapyd$_Iter2, _$rapyd$_Index2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  function posit() {
+    var x, x1, r1, r2, Bmag1, Bmag, u1;
+    "75";
+    Bmag = vector(0, 0, 0);
+    "77";
+    x = _$_(j.pos.x, "-", bullet.pos.x);
+    "78";
+    x1 = _$_(x, "+", j.length);
+    "79";
+    r1 = coilpiece.radius;
+    "80";
+    r2 = _$_(coilpiece.radius, "+", coilpiece.thickness);
+    "81";
+    Bmag1 = _$_(_$_(_$_(_$_(mew, "*", I), "*", N), "/", _$_(2, "*", coilpiece.thickness)), "*", _$_(_$_(x, "*", log(_$_(_$_(sqrt(_$_(Math.pow(r2, 2), "+", Math.pow(x, 2))), "+", r2), "/", _$_(sqrt(_$_(Math.pow(r1, 2), "+", Math.pow(x, 2))), "+", r1)))), "-", _$_(x1, "*", log(_$_(_$_(sqrt(_$_(Math.pow(r2, 2), "+", Math.pow(x1, 2))), "+", r2), "/", _$_(sqrt(_$_(Math.pow(r1, 2), "+", Math.pow(x1, 2))), "+", r1))))));
+    "83";
+    Bmag = _$_(Bmag, "+", vector(Bmag1, 0, 0));
+    "85";
+    u1 = dot($_("-", mm), Bmag);
+    "87";
+    return u1; };
+
+
+
+
+
+
+  function gunToggle() {
+    "117";
+    gun.visible = !gun.visible; }; var __frame = { name: "main", line: 1 }; return __func(wait, this, arguments, main, 0, __frame, function __$main() { version = ["1.1","glowscript",]; window.__GSlang = "vpython"; box = vp_box; sphere = vp_sphere; cylinder = vp_cylinder; pyramid = vp_pyramid; cone = vp_cone; helix = vp_helix; ellipsoid = vp_ellipsoid; ring = vp_ring; arrow = vp_arrow; graph = vp_graph; display = canvas; vector = vec; _$GS_$END = 0; scene = canvas(); _$rapyd$_Temp = 0; _$rapyd$_print = GSprint; arange = range; "4"; "A Coilgun/Gauss Rifle Simulation"; "5"; "Eric Bailey Brichetto"; "9"; "This program attempts to model the physics of a coilgun. A ferromagnetic projectile (the magnetic nature of which is not"; "10"; "included in the coding, but the equations are adjusted to accomodate its magnetic nature) is accelerated down a barrel by a series of four coils of wire, with current running through each one "; "11"; "As the bullet is pulled forward (+x direction) by the magnetic force of the first coil, that coil shuts off, losing its magnetic field."; "12"; "The projectile is then pulled forward and accelerated further by the next coil, and then the next, and the next, with each coil increasing "; "13"; "vmag of the bullet. It is a form of mass driver that uses electromagnetism to silently launch an object at high speeds (often hundreds of meters per second). In this particular simulation,"; "14"; "all coils in front of the bullet are active at once, instead of individually (it is quite likely that some coilgun designs"; "15"; "are built this way in real life; the common design powers the solenoids one at a time). "; "17"; "The graph that appears models the force as a function of time. Somewhat dramatically, as the bullet travels down the barrel, the force actually increases as it nears each solenoid, ."; "18"; "drops sharply as it reaches the middle of each solenoid. The bullet ends up with a much higher velocity coming out of the barrel than at the start. "; "20"; "For a realistic simulation, a very low time step and a relatively high number of current loops are needed. The entire simulation"; "21"; "should take no more than 10 seconds. This, however, still gives a roughly 30% error. For a very realistic simulation, one must take into account the "; "22"; "resistances of the solenoids, the complete interaction between the magnetic projectile and the coils, the electromagnetic interactions of the other parts of the "; "23"; "coilgun with the projectile, and the formation of Eddy currents (from Lenz's Law) that act to repel the projectile. These are all common technical issues that can be"; "24"; "difficult to overcome when designing and building an actual coilgun."; "29"; dx = _$_(2, "/", 6); "31"; N = 7; "32"; mew = 1e-7; "34"; I = 25000; "35"; t = 0; "36"; Q = 1; "37"; dt = 1e-7; "38"; plast = 0; "41"; coil = []; "43"; _$rapyd$_Iter0 = arange(_$_(-2, "/", 3), _$_(2, "/", 3), dx); for (_$rapyd$_Index0 = 0; (_$rapyd$_Index0 < _$rapyd$_Iter0.length); _$rapyd$_Index0 = _$_(_$rapyd$_Index0, "+", 1)) { i = _$rapyd$_Iter0[_$rapyd$_Index0]; "44"; coilpiece = helix({ pos: vector(i, 0, 0), length: _$_(1, "/", 10), coils: N, radius: _$_(1, "/", 6), color: color.green, plast: 0, thickness: _$_(1, "/", 30) }); "45"; coil.append(coilpiece); }; "48"; barrel = cylinder({ visible: true, pos: vector(-0.75, 0, 0), radius: _$_(1, "/", 4), length: 2, color: color.cyan }); "49"; handle = box({ visible: true, pos: vector(-1.2, 0, 0), length: 1.2, height: 0.35, width: 0.2, axis: vector(1, _$_(1, "/", 8), 0) }); "50"; gun = compound([barrel,handle,]); "58"; bullet = sphere({ visible: true, pos: vector(-1, 0, 0), radius: 0.05, v: vector(0.5, 0, 0), m: 1, q: Q, color: color.gray(0.5) }); "61"; _$rapyd$_Iter1 = coil; for (_$rapyd$_Index1 = 0; (_$rapyd$_Index1 < _$rapyd$_Iter1.length); _$rapyd$_Index1 = _$_(_$rapyd$_Index1, "+", 1)) { k = _$rapyd$_Iter1[_$rapyd$_Index1]; "62"; mm = vector(_$_(_$_(_$_(N, "*", I), "*", pi), "*", Math.pow(k.radius, 2)), 0, 0); }; "68"; u = 0; "69"; x1 = 0; "70"; x2 = 0; "72"; ulist = []; "74"; "112"; ffunctwind = gdisplay({ x: 500, y: 0 }); "113"; ffunct = gcurve({ dot: true, color: color.red }); "116";
+
+    "120";
+    scene.bind("click", gunToggle);
+    "122";
+    scene.caption.append("This program attempts to model the physics of a coilgun, a form of mass driver that uses electromagnetism to silently launch an object at high speeds (often hundreds of meters per second).\n");
+    "124";
+    scene.caption.append("Click on the model \"gun\" at any time to show the inner coils and bullet. Right click and drag to rotate the camera view. Zoom in or out by using the mouse scroll button. \nThe graph below models the force in Newtons as a function of time in seconds. \n");
+    "127"; return (function ___(__break) { var __more; var __loop = __cb(wait, __frame, 0, 0, function __$main() { __more = false;
+        var __1 = (t < 0.0003); if (__1) {
+          "128";
+          f = vector(0, 0, 0);
+          "132";
+          f = vector(0, 0, 0);
+          "133";
+          _$rapyd$_Iter2 = coil;
+          for (_$rapyd$_Index2 = 0; (_$rapyd$_Index2 < _$rapyd$_Iter2.length); _$rapyd$_Index2 = _$_(_$rapyd$_Index2, "+", 1)) {
+            j = _$rapyd$_Iter2[_$rapyd$_Index2];
+            "134";
+            if ((_$_(j.pos.x, "+", _$_(0.5, "*", j.length)) > bullet.pos.x)) {
+              "136";
+              potential = posit();
+              "137";
+              if ((j.plast === 0)) {
+                "138";
+                j.plast = potential; } ;
+
+              "139";
+              f = _$_(f, "+", vector(_$_(_$_(potential, "-", plast), "/", dt), 0, 0));
+              "140";
+              j.plast = potential; } ; };
+
+
+          "149";
+          bullet.v = _$_(bullet.v, "+", _$_(_$_(f, "*", dt), "/", bullet.m));
+          "150";
+          bullet.pos = _$_(bullet.pos, "+", _$_(bullet.v, "*", dt));
+          "151";
+          t = _$_(t, "+", dt);
+          "154";
+          ffunct.plot({ pos: [t,mag(f),] });
+          "155";
+          return rate(1000, __cb(wait, __frame, 174, 8, function __$main() { while (__more) { __loop(); }; __more = true; }, true)); } else { __break(); } ; }); do { __loop(); } while (__more); __more = true; })(function __$main() { wait(); }); });};
+
+
+main;
+
+;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; main() })})()
+</script>
+</div>
+</body>
+</html>
